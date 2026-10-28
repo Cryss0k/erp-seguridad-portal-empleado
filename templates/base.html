@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal del Empleado - Seguridad LTDA</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; color: #222; }
+        nav a { margin-right: 15px; text-decoration: none; color: #0b5394; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .error { color: #b00020; }
+        input, button { padding: 6px; margin: 4px 0; }
+        form { margin-top: 15px; }
+    </style>
+</head>
+<body>
+    {% if session.get('empleado_id') %}
+    <nav>
+        <a href="{{ url_for('dashboard') }}">Inicio</a>
+        <a href="{{ url_for('liquidaciones') }}">Liquidaciones</a>
+        <a href="{{ url_for('vacaciones') }}">Vacaciones</a>
+        <a href="{{ url_for('datos_personales') }}">Mis Datos</a>
+        <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+    </nav>
+    <hr>
+    {% endif %}
+    {% block content %}{% endblock %}
+</body>
+</html>

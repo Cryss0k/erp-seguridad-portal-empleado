@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Mis Datos Personales</h2>
+<form method="POST">
+    <label>RUT:</label><br>
+    <input type="text" value="{{ empleado['rut'] }}" disabled><br>
+    <label>Nombre:</label><br>
+    <input type="text" value="{{ empleado['nombre'] }}" disabled><br>
+    <label>Correo:</label><br>
+    <input type="text" name="email" value="{{ empleado['email'] }}"><br>
+    <label>Teléfono:</label><br>
+    <input type="text" name="telefono" value="{{ empleado['telefono'] }}"><br>
+    <button type="submit">Actualizar</button>
+</form>
+{% endblock %}

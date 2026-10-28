@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Mis Liquidaciones de Sueldo</h2>
+<table>
+    <tr><th>Período</th><th>Monto Líquido</th></tr>
+    {% for l in liquidaciones %}
+    <tr><td>{{ l['periodo'] }}</td><td>{{ l['monto_liquido'] }}</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
