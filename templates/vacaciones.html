@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Solicitud de Vacaciones</h2>
+<form method="POST">
+    <label>Fecha inicio:</label><br>
+    <input type="text" name="fecha_inicio" placeholder="AAAA-MM-DD" required><br>
+    <label>Fecha fin:</label><br>
+    <input type="text" name="fecha_fin" placeholder="AAAA-MM-DD" required><br>
+    <label>Motivo:</label><br>
+    <input type="text" name="motivo"><br>
+    <button type="submit">Solicitar</button>
+</form>
+
+<h3>Mis solicitudes</h3>
+<table>
+    <tr><th>Inicio</th><th>Fin</th><th>Motivo</th><th>Estado</th></tr>
+    {% for s in solicitudes %}
+    <tr><td>{{ s['fecha_inicio'] }}</td><td>{{ s['fecha_fin'] }}</td><td>{{ s['motivo'] }}</td><td>{{ s['estado'] }}</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
