@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Bienvenido, {{ nombre }}</h2>
+<h2>Bienvenido, {{ resumen.nombre }}</h2>
 <p>Desde aquí puedes consultar tus liquidaciones, solicitar vacaciones y actualizar tus datos personales.</p>
+<h3>Resumen de tu ficha</h3>
+<table>
+    <tr><th>RUT</th><td>{{ resumen.rut }}</td></tr>
+    <tr><th>Correo</th><td>{{ resumen.email }}</td></tr>
+    <tr><th>Teléfono</th><td>{{ resumen.telefono }}</td></tr>
+</table>
 {% endblock %}

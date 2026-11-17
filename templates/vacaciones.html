@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Solicitud de Vacaciones</h2>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
 <form method="POST">
-    <label>Fecha inicio:</label><br>
-    <input type="text" name="fecha_inicio" placeholder="AAAA-MM-DD" required><br>
-    <label>Fecha fin:</label><br>
-    <input type="text" name="fecha_fin" placeholder="AAAA-MM-DD" required><br>
-    <label>Motivo:</label><br>
-    <input type="text" name="motivo"><br>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="fecha_inicio">Fecha inicio:</label><br>
+    <input type="text" id="fecha_inicio" name="fecha_inicio" placeholder="AAAA-MM-DD" maxlength="10" required><br>
+    <label for="fecha_fin">Fecha fin:</label><br>
+    <input type="text" id="fecha_fin" name="fecha_fin" placeholder="AAAA-MM-DD" maxlength="10" required><br>
+    <label for="motivo">Motivo:</label><br>
+    <input type="text" id="motivo" name="motivo" maxlength="200"><br>
     <button type="submit">Solicitar</button>
 </form>
 

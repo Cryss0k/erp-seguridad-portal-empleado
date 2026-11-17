@@ -1,8 +1,10 @@
 __pycache__/
 *.pyc
 .env
-portal_empleado.db
+*.db
 venv/
 env/
+.venv/
 .sonar/
 .scannerwork/
+zap_*/

@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Mis Datos Personales</h2>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+{% if mensaje %}<p class="ok">{{ mensaje }}</p>{% endif %}
+<p>Por seguridad tus datos se muestran enmascarados. Completa solo el campo que quieras cambiar.</p>
 <form method="POST">
-    <label>RUT:</label><br>
-    <input type="text" value="{{ empleado['rut'] }}" disabled><br>
-    <label>Nombre:</label><br>
-    <input type="text" value="{{ empleado['nombre'] }}" disabled><br>
-    <label>Correo:</label><br>
-    <input type="text" name="email" value="{{ empleado['email'] }}"><br>
-    <label>Teléfono:</label><br>
-    <input type="text" name="telefono" value="{{ empleado['telefono'] }}"><br>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="rut">RUT:</label><br>
+    <input type="text" id="rut" value="{{ datos.rut }}" disabled><br>
+    <label for="email">Correo:</label><br>
+    <input type="text" id="email" name="email" placeholder="{{ datos.email }}" maxlength="120" autocomplete="off"><br>
+    <label for="telefono">Teléfono:</label><br>
+    <input type="text" id="telefono" name="telefono" placeholder="{{ datos.telefono }}" maxlength="16" autocomplete="off"><br>
     <button type="submit">Actualizar</button>
 </form>
 {% endblock %}
