@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Liquidación {{ periodo }}</h2>
+<table>
+    <tr><th>Período</th><td>{{ periodo }}</td></tr>
+    <tr><th>Monto líquido</th><td>{{ monto }}</td></tr>
+</table>
+<p><a href="{{ url_for('liquidaciones') }}">Volver a mis liquidaciones</a></p>
+{% endblock %}

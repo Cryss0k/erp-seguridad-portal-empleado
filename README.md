@@ -1,28 +1,37 @@
 # erp-seguridad-portal-empleado
 
-Prototipo funcional del módulo **Portal del Empleado** — ERP "Seguridad LTDA".
-Evaluación Sumativa 2 (EVS2) - Desarrollo Seguro (DevSecOps).
+Prototipo del módulo **Portal del Empleado** — ERP "Seguridad LTDA" (Desarrollo Seguro / DevSecOps).
 
-## Funcionalidades (Etapa 1)
-- Login (EMP-9)
-- Consulta de liquidaciones de sueldo (EMP-3)
-- Solicitud de vacaciones (EMP-4)
-- Actualización de datos personales (EMP-1)
+## Funcionalidades
+Login, consulta de liquidaciones, solicitud de vacaciones y actualización de datos personales.
 
 ## Cómo ejecutar
 ```bash
 pip install -r requirements.txt
-python init_db.py      # crea portal_empleado.db con datos de prueba
-python app.py           # app disponible en http://127.0.0.1:5000
+python generar_env.py     # crea .env con llaves aleatorias (no se sube a GitHub)
+python init_db.py         # crea la BD y muestra, una sola vez, las claves de prueba
+python app.py             # http://127.0.0.1:5000
+```
+Las contraseñas de prueba **no están en el repositorio**: se generan al azar al ejecutar `init_db.py`.
+
+## Medidas de seguridad (Sprint 2)
+| Medida | Dónde |
+|---|---|
+| Contraseñas con hash y sal (scrypt) | `app.py`, `init_db.py` |
+| Secretos y llaves en variables de entorno (`.env` ignorado por Git) | `seguridad.py`, `.env.example` |
+| Cifrado en reposo (Fernet) de RUT, correo, teléfono y montos | `seguridad.py`, `init_db.py` |
+| Enmascaramiento en vistas (RUT, correo, teléfono, montos) | `seguridad.py`, plantillas |
+| Cookie de sesión `HttpOnly`, `SameSite=Lax`, expiración de 15 min | `app.py` |
+| Cabeceras HTTP: CSP, X-Frame-Options, nosniff, Referrer-Policy, COOP/CORP | `app.py` |
+| Consultas parametrizadas y validación de entradas en servidor | `app.py`, `seguridad.py` |
+| Identidad solo desde la sesión (anti-IDOR) y protección CSRF | `app.py` |
+| Errores genéricos y modo debug desactivado por defecto | `app.py` |
+
+## Pruebas de seguridad
+```bash
+python -m unittest discover tests -v
 ```
 
-Usuario de prueba: RUT `12.345.678-9`, contraseña `clave123`.
-
-## Estado de seguridad
-Este código corresponde a la **línea base** de la Etapa 1: se desarrolló de forma
-natural, sin mecanismos especiales de blindaje, para que el análisis estático
-con SonarQube (Etapa 2) refleje hallazgos reales del equipo. Los hallazgos se
-analizan y gestionan en las Etapas 3-5 (ciclo de vida ISO/IEC 27034, validación
-de entradas y ética) y se corrigen recién en el Sprint 2 (ver backlog en Jira).
-
-No usar este código en producción tal como está.
+## Notas para producción
+Servir por HTTPS y definir `COOKIE_SECURE=1` (activa cookie `Secure` y HSTS). Guardar de forma segura
+la llave `DATA_ENCRYPTION_KEY`: sin ella no se pueden leer los datos cifrados.
